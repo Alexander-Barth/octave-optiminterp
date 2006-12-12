@@ -1,0 +1,5 @@
+configure
+autom4te.cache
+*~
+*.oct
+*.mod
