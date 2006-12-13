@@ -3,7 +3,7 @@
 % there is a bug in the optimal interpolation package or 
 % that it is incrorrectly installed.
 
-function test_optiminterp
+function test_optiminterp_mult
 
 more off
 
