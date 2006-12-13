@@ -1,5 +1,5 @@
 /*
-  n-dimentional optimal interpolation
+  n-dimensional optimal interpolation
   Copyright (C) 2005 Alexander Barth <abarth@marine.usf.edu>
 
   This program is free software; you can redistribute it and/or
@@ -51,7 +51,7 @@ its error variance.\n\
 \n\
 The background field of the optimal interpolation is zero.\n\
 For a different background field, the background field\n\
-must be substracted from the observation, the difference \n\
+must be subtracted from the observation, the difference \n\
 is mapped by OI onto the background grid and finally the\n\
 background is added back to the interpolated field.\n\
 \n\
@@ -81,7 +81,7 @@ have a error variance of one. The error variances of the observations need to be
    In Octave and Matlab convention (see gridatan), the positions of series 
    of points in n-D space is represented by an m-by-n matrix. However, it is more
    efficient to represent it as a n-ny-m matrix. The Fortran code uses
-   the later convension. Therefore we need to transpose the following 
+   the later convention. Therefore we need to transpose the following 
    matrices:
   */
 
@@ -112,7 +112,7 @@ have a error variance of one. The error variances of the observations need to be
   }
 
   if (ox.cols() != of.cols() || ox.cols() != ovar.numel()) {
-    error ("optiminterp: number of colums in ox must be equal to the number of elements in of and ovar");
+    error ("optiminterp: number of columns in ox must be equal to the number of elements in of and ovar");
     return octave_value();
   }
 
