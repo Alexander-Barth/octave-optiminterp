@@ -15,7 +15,7 @@
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 ## -*- texinfo -*-
-## @deftypefn {Loadable Function} {[@var{fi},@var{vari}] = } optiminterp(@var{x},@var{f},@var{var},@var{lenx},@var{m},@var{xi})
+## @deftypefn {Loadable Function} {[@var{fi},@var{vari}]} = optiminterp(@var{x},@var{f},@var{var},@var{lenx},@var{m},@var{xi})
 ## Performs a 1D-optimal interpolation (objective analysis).
 ##
 ## Every elements in @var{f} corresponds to a data point (observation)
@@ -57,7 +57,7 @@ gx(:,1) = xi(:);
 ox(:,1) = x(:);
 
 %whos ox f var lenx m
-[fi,vari] = optiminterp(ox,f,var,1/lenx,m,gx);
+[fi,vari] = optiminterp(ox,f,var,lenx,m,gx);
 
 
 %fi = reshape(fi,[numel(xi) size(f,2)]);
