@@ -31,7 +31,7 @@
 ##
 ## The background field of the optimal interpolation is zero.
 ## For a different background field, the background field
-## must be substracted from the observation, the difference 
+## must be subtracted from the observation, the difference 
 ## is mapped by OI onto the background grid and finally the
 ## background is added back to the interpolated field.
 ## The error variance of the background field is assumed to 
