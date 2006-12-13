@@ -34,9 +34,31 @@ extern "C"
 }
 
 DEFUN_DLD (optiminterp, args, ,
-	   "- Loadable Function: [gf,gvar] = optiminterp(ox,of,ovar,param,m,gx)\n\
-     \n\
-     Performs an N-dimensional optimal interpolation.")
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {[@var{fi},@var{vari}]} = optiminterp(@var{x},@var{f},@var{var},@var{len},@var{m},@var{xi}) \n\
+Performs an @var{n}-dimensional optimal interpolation. \n\
+\n\
+Every elements in @var{f} corresponds to a data point (observation)\n\
+at location the @var{x(:,1)}, @var{x(:,2)},... @var{x(:,n)} in a @var{n}-dimensional space with the error variance @var{var}\n\
+\n\
+Each element of the @var{n} by 1 vector @var{len} is the correlation length in the corresponding direction.\n\
+\n\
+@var{m} represents the number of influential points.\n\
+\n\
+@var{xi(:,1)}, @var{xi(:,2)} ... @var{xi(:,n)} are the coordinates of the points where the field is\n\
+interpolated. @var{fi} is the interpolated field and @var{vari} is \n\
+its error variance.\n\
+\n\
+The background field of the optimal interpolation is zero.\n\
+For a different background field, the background field\n\
+must be substracted from the observation, the difference \n\
+is mapped by OI onto the background grid and finally the\n\
+background is added back to the interpolated field.\n\
+\n\
+The error variance of the background field is assumed to \n\
+have a error variance of one. The error variances of the observations need to be scaled accordingly. \n\
+@end deftypefn\n\
+@seealso{optiminterp1,optiminterp2,optiminterp3}\n")
 {
   octave_value_list retval;
   
@@ -51,6 +73,9 @@ DEFUN_DLD (optiminterp, args, ,
   Matrix param = args(3).matrix_value();
   int m = (int)args(4).scalar_value();
   Matrix gx = args(5).matrix_value();
+
+  // The Fortran routine expects the inverse of the correlation length
+  param = 1/param;
 
   /*
    In Octave and Matlab convention (see gridatan), the positions of series 

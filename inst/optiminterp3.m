@@ -75,7 +75,7 @@ ox(:,3) = z(:);
 
 f=reshape(f,[on nf]);
 
-[fi,vari] = optiminterp(ox,f,var,1./[lenx leny lenz],m,gx);
+[fi,vari] = optiminterp(ox,f,var,[lenx leny lenz],m,gx);
 
 fi = reshape(fi,[size(xi) nf]);
 vari = reshape(vari,size(xi));
