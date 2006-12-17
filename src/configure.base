@@ -332,6 +332,8 @@ AC_MSG_CHECKING([whether mkoctfile accepts Fortran 90])
 AC_COMPILE_IFELSE([[\
 module test_module; \
 contains; \
+subroutine foo()
+end subroutine 
 end module \
 ]], MKOCTFILE_FORTRAN_90=yes, MKOCTFILE_FORTRAN_90=no)
 
