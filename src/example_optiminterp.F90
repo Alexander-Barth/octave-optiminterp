@@ -53,8 +53,7 @@ program test_optiminterp
  ! random_number in the hope that the results will be
  ! platform independent
 
- integer(8), parameter :: A = 1664525_8, B = 1013904223_8,
- &              Mo = 4294967296_8
+ integer(8), parameter :: A = 1664525_8, B = 1013904223_8, Mo = 4294967296_8
  integer(8) :: next = 0_8
 
 
