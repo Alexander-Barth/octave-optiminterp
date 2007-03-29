@@ -15,8 +15,8 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## -*- texinfo -*-
-## @deftypefn {Loadable Function} {[@var{fi},@var{vari}] = } optiminterp(@var{x},@var{y},@var{f},@var{var},@var{lenx},@var{leny},@var{m},@var{xi},@var{yi})
-## Performs a 2D-optimal interpolation (objective analysis).
+## @deftypefn {Loadable Function} {[@var{fi},@var{vari}] = } optiminterp2(@var{x},@var{y},@var{f},@var{var},@var{lenx},@var{leny},@var{m},@var{xi},@var{yi})
+## Performs a local 2D-optimal interpolation (objective analysis).
 ##
 ## Every elements in @var{f} corresponds to a data point (observation)
 ## at location @var{x},@var{y} with the error variance @var{var}.

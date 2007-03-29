@@ -35,7 +35,7 @@ extern "C"
 
 DEFUN_DLD (optiminterp, args, ,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{fi},@var{vari}]} = optiminterp(@var{x},@var{f},@var{var},@var{len},@var{m},@var{xi}) \n\
+@deftypefn {Loadable Function} {[@var{fi},@var{vari}] =} optiminterp(@var{x},@var{f},@var{var},@var{len},@var{m},@var{xi}) \n\
 Performs an @var{n}-dimensional optimal interpolation. \n\
 \n\
 Every elements in @var{f} corresponds to a data point (observation)\n\
@@ -58,7 +58,7 @@ background is added back to the interpolated field.\n\
 The error variance of the background field is assumed to \n\
 have a error variance of one. The error variances of the observations need to be scaled accordingly. \n\
 @end deftypefn\n\
-@seealso{optiminterp1,optiminterp2,optiminterp3}\n")
+@seealso{optiminterp1,optiminterp2,optiminterp3,optiminterp4}\n")
 {
   octave_value_list retval;
   
