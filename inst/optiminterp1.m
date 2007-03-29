@@ -15,8 +15,8 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## -*- texinfo -*-
-## @deftypefn {Loadable Function} {[@var{fi},@var{vari}]} = optiminterp(@var{x},@var{f},@var{var},@var{lenx},@var{m},@var{xi})
-## Performs a 1D-optimal interpolation (objective analysis).
+## @deftypefn {Loadable Function} {[@var{fi},@var{vari}]} = optiminterp1(@var{x},@var{f},@var{var},@var{lenx},@var{m},@var{xi})
+## Performs a local 1D-optimal interpolation (objective analysis).
 ##
 ## Every elements in @var{f} corresponds to a data point (observation)
 ## at location @var{x},@var{y} with the error variance @var{var}.

@@ -15,7 +15,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## -*- texinfo -*-
-## @deftypefn {Loadable Function} {[@var{fi},@var{vari}] = } optiminterp(@var{x},@var{y},@var{z},@var{f},@var{var},@var{lenx},@var{leny},@var{lenz},@var{m},@var{xi},@var{yi},@var{zi})
+## @deftypefn {Loadable Function} {[@var{fi},@var{vari}] = } optiminterp4(@var{x},@var{y},@var{z},@var{f},@var{var},@var{lenx},@var{leny},@var{lenz},@var{m},@var{xi},@var{yi},@var{zi})
 ## Performs a local 4D-optimal interpolation (objective analysis).
 ##
 ## Every elements in @var{f} corresponds to a data point (observation)
