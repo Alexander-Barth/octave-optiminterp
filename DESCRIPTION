@@ -4,7 +4,7 @@ Date: 2006-12-05
 Author: Alexander Barth <abarth@marine.usf.edu>, Aida Alvera-Azcárate <aalvera@marine.usf.edu>
 Maintainer: Alexander Barth <abarth@marine.usf.edu>
 Title: optiminterp
-Description: A optimal interpolation toolbox for octave
+Description: An optimal interpolation toolbox for octave
 Depends: octave (>= 2.9.9)
 Autoload: yes
 License: GPL version 2 or later
