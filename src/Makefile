@@ -15,7 +15,7 @@ ifeq ($(MKOCTFILE_FORTRAN_90),yes)
 all: $(TARGETS)
 else
 all:
-        @echo "*** mkoctfile lacks Fortran 90 support"; false
+	@echo "*** mkoctfile lacks Fortran 90 support"; false
 endif
 
 
