@@ -172,8 +172,10 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(CPICFLAG)
 
 dnl Fortran compiler and flags
+dnl Note remove "-pipe" from FFLAGS as gfortran v4.0.x has issue with
+dnl this an F90 files
 F77=`$MKOCTFILE -p F77`
-FFLAGS=`$MKOCTFILE -p FFLAGS`
+FFLAGS=`$MKOCTFILE -p FFLAGS | sed -e 's/-pipe//'`
 FPICFLAG=`$MKOCTFILE -p FPICFLAG`
 AC_SUBST(F77)
 AC_SUBST(FFLAGS)
@@ -321,7 +323,7 @@ AC_PROG_FC([mkoctfile], 1990)
 
 dnl Test if mkoctfile and the Fortran 90 compiler support
 dnl the extention .F90 (free-form with pre-processor directives)
-
+export FFLAGS
 AC_FC_SRCEXT(F90,,AC_ERROR([mkoctfile does not accept files with the extention .F90. \
 Support for this file extension has been added to version 2.9.9 of octave.]))
 
