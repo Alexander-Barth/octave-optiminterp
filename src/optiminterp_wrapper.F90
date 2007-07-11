@@ -19,7 +19,7 @@
 
 !  Author: Alexander Barth <abarth@marine.usf.edu>
 
-subroutine optiminterp_wrapper(n,nf,gn,on,nparam,ox,of,ovar,    &
+subroutine optiminterpwrapper(n,nf,gn,on,nparam,ox,of,ovar,    &
                                param,m,gx,gf,gvar)
  use optimal_interpolation
  implicit none
@@ -39,4 +39,4 @@ subroutine optiminterp_wrapper(n,nf,gn,on,nparam,ox,of,ovar,    &
 !!$   end do
 !!$ end do
 
-end subroutine optiminterp_wrapper
+end subroutine optiminterpwrapper
