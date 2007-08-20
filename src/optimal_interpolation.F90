@@ -81,7 +81,7 @@
       integer,  intent(in)  :: m
       integer,  intent(out) :: pannier(m)
 
-      integer :: i,max_pannier(m)
+      integer :: i,max_pannier(1)
 
       do i=1,m
         pannier(i) = i
