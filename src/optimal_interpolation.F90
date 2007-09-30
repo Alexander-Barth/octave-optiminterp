@@ -158,7 +158,7 @@
 
 !     Local variables:
 
-      integer :: i, j, k, info, N
+      integer :: i, info, N
 
 !     Execution:
 
@@ -215,7 +215,7 @@
                                                  ! and error variances
 !     Local variables:
 
-      real(wp) :: HPH(m,m), PH(m), iA(m,m), PHiA(m),A(m,m),D(m)
+      real(wp) :: PH(m), PHiA(m),A(m,m),D(m)
 
 #ifdef DIAG_OBS_COVAR
       real(wp) :: R(m)
