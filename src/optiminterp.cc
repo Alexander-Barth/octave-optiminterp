@@ -26,7 +26,8 @@
 
 extern "C"
 {
-  int F77_FUNC (optiminterpwrapper, OPTIMINTERPWRAPPER) 
+  F77_RET_T 
+  F77_FUNC (optiminterpwrapper, OPTIMINTERPWRAPPER) 
     (
      const int& n, const int& nf, const int& gn, const int& on, const int& nparam,  
      double* ox, double* of, double* ovar, double* param,
@@ -121,9 +122,11 @@ have a error variance of one. The error variances of the observations need to be
     m = on;
   }
 
+
   F77_XFCN (optiminterpwrapper, OPTIMINTERPWRAPPER,
 	    ( n,nf,gn,on,nparam,ox.fortran_vec(),of.fortran_vec(),ovar.fortran_vec(),
               param.fortran_vec(),m,gx.fortran_vec(),gf.fortran_vec(),gvar.fortran_vec()));
+
   if (f77_exception_encountered) {
       error ("unrecoverable error in optiminterp");
       return retval;
