@@ -44,38 +44,4 @@
 
 function [fi,vari] = optiminterp3(x,y,z,f,var,lenx,leny,lenz,m,xi,yi,zi)
 
-if (isscalar(var))
-  var = var*ones(size(x));
-end
-
-if isvector(f) & size(f,1) == 1
-   f = f';
-end
-
-on = numel(x);
-nf = size(f,4);
-
-if (on*nf == numel(f) & on ~= numel(y) & ...
-    on ~= numel(z)  & on ~= numel(var))
-  error('optiminterp3: x,y,z,f,var must have the same number of elements');
-end
-
-if (numel(xi) ~= numel(yi) & numel(xi) ~= numel(zi))
-  error('optiminterp3: xi and yi must have the same number of elements');
-end
-
-gx(:,1) = xi(:); 
-gx(:,2) = yi(:); 
-gx(:,3) = zi(:); 
-
-ox(:,1) = x(:);
-ox(:,2) = y(:);
-ox(:,3) = z(:);
-
-f=reshape(f,[on nf]);
-
-[fi,vari] = optiminterp(ox,f,var,[lenx leny lenz],m,gx);
-
-fi = reshape(fi,[size(xi) nf]);
-vari = reshape(vari,size(xi));
-
+[fi,vari] = optiminterpn(x,y,z,f,var,lenx,leny,lenz,m,xi,yi,zi);
