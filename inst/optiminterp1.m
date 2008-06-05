@@ -38,26 +38,4 @@
 
 function [fi,vari] = optiminterp1(x,f,var,lenx,m,xi)
 
-if (isscalar(var))
-  var = var*ones(size(x));
-end
-
-if isvector(f) & size(f,1) == 1
-   f = f';
-end
-
-if (size(f,1) ~= numel(x)  & numel(f) ~= numel(var))
-  error('optiminterp2: x,var must have the same number of elements');
-end
-
-%whos ox f var lenx m
-
-gx(:,1) = xi(:);
-ox(:,1) = x(:);
-
-%whos ox f var lenx m
-[fi,vari] = optiminterp(ox,f,var,lenx,m,gx);
-
-
-%fi = reshape(fi,[numel(xi) size(f,2)]);
-%vari = reshape(vari,size(xi));
+[fi,vari] = optiminterpn(x,f,var,lenx,m,xi);
