@@ -4,7 +4,7 @@ Date: 2008-06-19
 Author: Alexander Barth <abarth@marine.usf.edu>, Aida Alvera-Azcárate <aalvera@marine.usf.edu>
 Maintainer: Alexander Barth <abarth@marine.usf.edu>
 Title: optiminterp
-Description: An optimal interpolation toolbox for octave
+Description: An optimal interpolation toolbox for octave. This package provides functions to perform a n-dimensional optimal interpolations of arbitrarily distributed data points.
 Depends: octave (>= 2.9.9)
 Autoload: yes
 License: GPL version 2 or later
