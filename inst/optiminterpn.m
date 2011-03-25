@@ -38,13 +38,13 @@
 ## @end deftypefn
 
 ## Copyright (C) 2008, Alexander Barth
-## Author: Alexander Barth <abarth@marine.usf.edu>
+## Author: Alexander Barth <barth.alexander@gmail.com>
 
 # {[@var{fi},@var{vari}] = } optiminterpn(@var{x},@var{y},@var{...},@var{f},@var{var},@var{lenx},@var{leny},@var{len...},@var{m},@var{xi},@var{yi},@var{...})
 
 function [fi,vari] = optiminterpn(varargin)
 
-if nargin < 6 | mod(nargin-3,3) ~= 0
+if nargin < 6 || mod(nargin-3,3) ~= 0
   error('optiminterpn: wrong number of arguments');
 end
 
@@ -83,14 +83,14 @@ if (isscalar(var))
   var = var*ones(size(x));
 end
 
-if isvector(f) & size(f,1) == 1
+if isvector(f) && size(f,1) == 1
    f = f';
 end
 
 % is this correct?
 nf = size(f,n+1);
 
-if (on*nf ~= numel(f) & on ~= numel(var))
+if (on*nf ~= numel(f) && on ~= numel(var))
   error('optiminterpn: x,y,...,var must have the same number of elements');
 end
 

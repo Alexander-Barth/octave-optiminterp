@@ -41,7 +41,7 @@
 
 ## Copyright (C) 2007 Aida Alvera-Azcárate
 ## Author: Aida Alvera-Azcárate <aalvera@marine.usf.edu> 
-## Author: Alexander Barth <abarth@marine.usf.edu>
+## Author: Alexander Barth <barth.alexander@gmail.com>
 
 function [fi,vari] = optiminterp4(x,y,z,t,f,var,lenx,leny,lenz,lent,m,xi,yi,zi,ti)
 

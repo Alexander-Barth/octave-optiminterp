@@ -1,6 +1,6 @@
 
 !  Fortran 90 module for n-dimensional optimal interpolation.
-!  Copyright (C) 2005 Alexander Barth <abarth@marine.usf.edu>
+!  Copyright (C) 2005 Alexander Barth <barth.alexander@gmail.com>
 !  
 !  This program is free software; you can redistribute it and/or
 !  modify it under the terms of the GNU General Public License

@@ -1,6 +1,6 @@
 /*
   n-dimensional optimal interpolation
-  Copyright (C) 2005 Alexander Barth <abarth@marine.usf.edu>
+  Copyright (C) 2005 Alexander Barth <barth.alexander@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -16,7 +16,7 @@
   along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 
-  Author: Alexander Barth <abarth@marine.usf.edu>
+  Author: Alexander Barth <barth.alexander@gmail.com>
 */									
 
 
