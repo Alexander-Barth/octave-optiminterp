@@ -38,7 +38,7 @@
 ## @end deftypefn
 
 ## Copyright (C) 2006, Alexander Barth
-## Author: Alexander Barth <abarth@marine.usf.edu>
+## Author: Alexander Barth <barth.alexander@gmail.com>
 
 function [fi,vari] = optiminterp2(x,y,f,var,lenx,leny,m,xi,yi)
 
