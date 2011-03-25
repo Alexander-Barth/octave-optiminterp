@@ -16,11 +16,14 @@
 !  along with this program; if not, see <http://www.gnu.org/licenses/>.
 !  
 
-!  Author: Alexander Barth <abarth@marine.usf.edu>
+!  Author: Alexander Barth <a.barth at ulg.ac.be>
 !  Dependencies: LAPACK (dsyev)
 
 !  David Saunders (NASA Ames Research Center)
 !     optimizations and code clean-up
+
+!  Gian Franco Marras (CINECA) <g.marras at cineca.it>
+!     fix OPENMP directive
 
 #define DIAG_OBS_COVAR
       module optimal_interpolation
@@ -247,7 +250,8 @@
       lwork = pinv_workspace(m)
 #     endif
 
-!$omp parallel private(work,i,iA,PHiA,index,distance,HPH,j1,j2)
+!$omp parallel  default(none) private(work,i,PH,PHiA,index,distance,j1,j2,R,D,A) &
+!$omp shared(gf,gn,gvar,gx,lwork,m,of,ovar,ox,param,tolerance)
 
 #     ifndef STATIC_WORKSPACE
       allocate(work(lwork))
