@@ -126,8 +126,109 @@
       end subroutine observation_covariance
 
 !     --------------------------------------------------------------------------
+!     Modified Bessel functions of 2nd kind (order 1)
 
-      function  background_covariance(x1,x2,param) result(c)
+      function mod_bessel_K1(x)       
+      implicit none
+      real(wp), intent(in) :: x
+      real(wp) :: mod_bessel_K1
+
+      real(8) :: y
+      real(8), parameter :: & 
+           P1 = 1.0D0, &
+           P2 = 0.15443144D0, &
+           P3 = -0.67278579D0, &
+           P4 = -0.18156897D0, &
+           P5 = -0.1919402D-1, &
+           P6 = -0.110404D-2, &
+           P7 = -0.4686D-4, &
+           Q1 = 1.25331414D0, &
+           Q2 = 0.23498619D0, &
+           Q3 = -0.3655620D-1, &
+           Q4 = 0.1504268D-1, &
+           Q5 = -0.780353D-2, &
+           Q6 = 0.325614D-2, &
+           Q7 = -0.68245D-3
+
+      if(x <= 0.) stop 'error x <= 0' 
+
+      if(x <= 2.0) then
+         y = x * x * 0.25
+         mod_bessel_K1 = (log(x/2.0)*mod_bessel_I1(x))+(1.0/x)*(P1+y*(P2+y*(P3+ &
+              y*(P4+y*(P5+y*(P6+y*P7))))))
+      else
+         y = 2.0 / x
+         mod_bessel_K1 = (exp(-x)/sqrt(x))*(Q1+y*(Q2+y*(Q3+   &
+              y*(Q4+y*(Q5+y*(Q6+y*Q7))))))
+      endif
+
+      end function
+
+!     --------------------------------------------------------------------------
+!     Modified Bessel functions of 1st kind (order 1)
+
+      function mod_bessel_I1(x)
+      implicit none
+      real(wp) :: x
+      real(wp) :: mod_bessel_I1
+
+      real(8) :: y, ax
+      real(8), parameter :: & 
+           P1 = 0.5D0, &
+           P2 = 0.87890594D0, &
+           P3 = 0.51498869D0, & 
+           P4 = 0.15084934D0, &
+           P5 = 0.2658733D-1, &
+           P6 = 0.301532D-2, &
+           P7 = 0.32411D-3, &
+           Q1 = 0.39894228D0, &
+           Q2 = -0.3988024D-1, &
+           Q3 = -0.362018D-2, &
+           Q4 = 0.163801D-2, &
+           Q5 = -0.1031555D-1, &
+           Q6 = 0.2282967D-1, &
+           Q7 = -0.2895312D-1, &
+           Q8 = 0.1787654D-1, &
+           Q9 = -0.420059D-2
+
+      if(abs(x) < 3.75) then
+         y = x*x / (3.75*3.75)
+         mod_bessel_I1 = x*(P1+y*(P2+y*(P3+y*(P4+y*(P5+y*(P6+y*P7))))))
+      else
+         ax = abs(x)
+         y = 3.75 / ax
+         mod_bessel_I1 = (exp(ax)/sqrt(ax))*(Q1+y*(Q2+y*(Q3+         &
+              y*(Q4+y*(Q5+y*(Q6+y*(Q7+y*(Q8+y*Q9))))))))
+         if (x < 0.) mod_bessel_I1 = - mod_bessel_I1
+      endif
+
+      end function
+
+!     --------------------------------------------------------------------------
+
+      function  background_covariance_diva(x1,x2,param) result(c)
+      implicit none
+      real(wp),intent(in) :: x1(:),x2(:),param(:)
+      real(wp) :: c
+
+      real(wp) :: d(size(x1))
+      real(wp) :: rn 
+
+      d = (x1 - x2)*param
+      rn = sqrt(sum(d**2))
+
+      if (rn == 0) then
+        c = 1
+      else
+        c = rn * mod_bessel_K1(rn)
+      end if
+
+      end function background_covariance_diva
+
+
+!     --------------------------------------------------------------------------
+
+      function  background_covariance_gaussian(x1,x2,param) result(c)
       implicit none
       real(wp),intent(in) :: x1(:),x2(:),param(:)
       real(wp) :: c
@@ -135,10 +236,28 @@
       real(wp) :: d(size(x1))
 
       d = (x1 - x2)*param
-
       c = exp(-sum(d**2))
 
+      end function background_covariance_gaussian
+
+!     --------------------------------------------------------------------------
+
+
+      function  background_covariance(x1,x2,param) result(c)
+      implicit none
+      real(wp),intent(in) :: x1(:),x2(:),param(:)
+      real(wp) :: c
+
+#     if defined(BACKGROUND_COVARIANCE_DIVA)
+      c = background_covariance_diva(x1,x2,param)
+#     else
+      c = background_covariance_gaussian(x1,x2,param)
+#     endif
+
       end function background_covariance
+
+
+
 
 !     --------------------------------------------------------------------------
 
