@@ -7,6 +7,9 @@ OBJECTS=optiminterp.o optimal_interpolation.o optiminterp_wrapper.o
 
 TARGETS=optiminterp.oct
 
+LAPACK_LIBS := $(shell mkoctfile -p LAPACK_LIBS)
+FLIBS := $(shell mkoctfile -p FLIBS) 
+
 # Rule for compiling Fortran 90 programs
 
 %.o: %.F90
@@ -21,7 +24,7 @@ endif
 
 
 optiminterp.oct: $(OBJECTS)
-	$(MKOCTFILE) -o $@ $(OBJECTS) $(LIBS)
+	$(MKOCTFILE) -o $@ $(OBJECTS) $(LIBS) $(LAPACK_LIBS) $(FLIBS)
 
 check:
 	octave --silent --norc --eval test_optiminterp
