@@ -1,29 +1,22 @@
+!! Copyright (C) 2005 Alexander Barth <barth.alexander@gmail.com>
+!! Copyright (C) 2006 David Saunders (NASA Ames Research Center)
+!! Copyright (C) 2008 Gian Franco Marras (CINECA) <g.marras@cineca.it>
+!!
+!! This program is free software; you can redistribute it and/or modify it under
+!! the terms of the GNU General Public License as published by the Free Software
+!! Foundation; either version 3 of the License, or (at your option) any later
+!! version.
+!!
+!! This program is distributed in the hope that it will be useful, but WITHOUT
+!! ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+!! FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+!! details.
+!!
+!! You should have received a copy of the GNU General Public License along with
+!! this program; if not, see <http://www.gnu.org/licenses/>.
 
-!  Fortran 90 module for n-dimensional optimal interpolation.
-!  Copyright (C) 2005 Alexander Barth <barth.alexander@gmail.com>
-!  
-!  This program is free software; you can redistribute it and/or
-!  modify it under the terms of the GNU General Public License
-!  as published by the Free Software Foundation; either version 2
-!  of the License, or (at your option) any later version.
-!  
-!  This program is distributed in the hope that it will be useful,
-!  but WITHOUT ANY WARRANTY; without even the implied warranty of
-!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-!  GNU General Public License for more details.
-!  
-!  You should have received a copy of the GNU General Public License
-!  along with this program; if not, see <http://www.gnu.org/licenses/>.
-!  
-
-!  Author: Alexander Barth <a.barth at ulg.ac.be>
-!  Dependencies: LAPACK (dsyev)
-
-!  David Saunders (NASA Ames Research Center)
-!     optimizations and code clean-up
-
-!  Gian Franco Marras (CINECA) <g.marras at cineca.it>
-!     fix OPENMP directive
+!! Fortran 90 module for n-dimensional optimal interpolation.
+!! Dependencies: LAPACK (dsyev)
 
 #define DIAG_OBS_COVAR
       module optimal_interpolation
