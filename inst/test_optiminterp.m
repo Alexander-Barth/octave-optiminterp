@@ -13,7 +13,7 @@
 %% You should have received a copy of the GNU General Public License along with
 %% this program; if not, see <http://www.gnu.org/licenses/>.
 
-% Tests 1D, 2D and 3D optimal interpolation.
+% Tests 1D, 2D, 3D and 4D optimal interpolation.
 % All tests should pass; any error indicates that either 
 % there is a bug in the optimal interpolation package or 
 % that it is incrorrectly installed.
