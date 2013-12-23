@@ -1,4 +1,4 @@
-!! Copyright (C) 2005 Alexander Barth <barth.alexander@gmail.com>
+!! Copyright (C) 2005,2013 Alexander Barth <barth.alexander@gmail.com>
 !! Copyright (C) 2006 David Saunders (NASA Ames Research Center)
 !! Copyright (C) 2008 Gian Franco Marras (CINECA) <g.marras@cineca.it>
 !!
