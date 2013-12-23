@@ -30,7 +30,7 @@
 
 !     --------------------------------------------------------------------------
 
-      subroutine select_nearest(x,ox,param,m,index,distance)
+      pure subroutine select_nearest(x,ox,param,m,index,distance)
 
 !     Select the m observations from ox(1:nd,1:on) closest to point x(1:nd).
 
@@ -64,7 +64,7 @@
 
 !     --------------------------------------------------------------------------
 
-      subroutine sort(d,m,pannier)
+      pure subroutine sort(d,m,pannier)
 
 !     Return the indices of the m smallest elements in d(:).
 !     The algorithm is succinctly coded, but would a heap sort be faster?
@@ -95,7 +95,7 @@
 
 !     --------------------------------------------------------------------------
 
-      subroutine observation_covariance(ovar,index,R)
+      pure subroutine observation_covariance(ovar,index,R)
       implicit none
       real(wp),intent(in) ::ovar(:)
       integer,intent(in) :: index(:)
@@ -121,7 +121,7 @@
 !     --------------------------------------------------------------------------
 !     Modified Bessel functions of 2nd kind (order 1)
 
-      function mod_bessel_K1(x)       
+      pure function mod_bessel_K1(x)       
       implicit none
       real(wp), intent(in) :: x
       real(wp) :: mod_bessel_K1
@@ -143,9 +143,15 @@
            Q6 = 0.325614D-2, &
            Q7 = -0.68245D-3
 
-      if(x <= 0.) stop 'error x <= 0' 
+      if (x <= 0.) then
+        ! a pure function cannot call stop therefore we return NaN
+        ! stop 'error x <= 0' 
+        y = 0
+        y = y/y
+        return
+      end if
 
-      if(x <= 2.0) then
+      if (x <= 2.0) then
          y = x * x * 0.25
          mod_bessel_K1 = (log(x/2.0)*mod_bessel_I1(x))+(1.0/x)*(P1+y*(P2+y*(P3+ &
               y*(P4+y*(P5+y*(P6+y*P7))))))
@@ -160,9 +166,9 @@
 !     --------------------------------------------------------------------------
 !     Modified Bessel functions of 1st kind (order 1)
 
-      function mod_bessel_I1(x)
+      pure function mod_bessel_I1(x)
       implicit none
-      real(wp) :: x
+      real(wp), intent(in) :: x
       real(wp) :: mod_bessel_I1
 
       real(8) :: y, ax
@@ -199,7 +205,7 @@
 
 !     --------------------------------------------------------------------------
 
-      function  background_covariance_diva(x1,x2,param) result(c)
+      pure function  background_covariance_diva(x1,x2,param) result(c)
       implicit none
       real(wp),intent(in) :: x1(:),x2(:),param(:)
       real(wp) :: c
@@ -221,7 +227,7 @@
 
 !     --------------------------------------------------------------------------
 
-      function  background_covariance_gaussian(x1,x2,param) result(c)
+      pure function  background_covariance_gaussian(x1,x2,param) result(c)
       implicit none
       real(wp),intent(in) :: x1(:),x2(:),param(:)
       real(wp) :: c
@@ -236,7 +242,7 @@
 !     --------------------------------------------------------------------------
 
 
-      function  background_covariance(x1,x2,param) result(c)
+      pure function  background_covariance(x1,x2,param) result(c)
       implicit none
       real(wp),intent(in) :: x1(:),x2(:),param(:)
       real(wp) :: c
