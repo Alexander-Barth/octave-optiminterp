@@ -18,14 +18,22 @@
 #include <octave/oct.h>
 #include "f77-fcn.h"
 
+#if defined (OCTAVE_HAVE_F77_INT_TYPE)
+#  define TO_F77_INT(x) octave::to_f77_int (x)
+#else
+typedef octave_idx_type F77_INT;
+#  define TO_F77_INT(x) (x)
+#endif
+
 extern "C"
 {
   F77_RET_T 
   F77_FUNC (optiminterpwrapper, OPTIMINTERPWRAPPER) 
     (
-     const int& n, const int& nf, const int& gn, const int& on, const int& nparam,  
+     const F77_INT& n, const F77_INT& nf, const F77_INT& gn,
+     const F77_INT& on, const F77_INT& nparam,  
      double* ox, double* of, double* ovar, double* param,
-     const int& m, double* gx,  double* gf, double* gvar);
+     const F77_INT& m, double* gx,  double* gf, double* gvar);
 }
 
 DEFUN_DLD (optiminterp, args, ,
@@ -66,7 +74,7 @@ have a error variance of one. The error variances of the observations need to be
   Matrix of = args(1).matrix_value();
   Matrix ovar = args(2).matrix_value();
   Matrix param = args(3).matrix_value();
-  int m = (int)args(4).scalar_value();
+  F77_INT m = TO_F77_INT ((int)args(4).scalar_value());
   Matrix gx = args(5).matrix_value();
 
   // The Fortran routine expects the inverse of the correlation length
@@ -85,11 +93,11 @@ have a error variance of one. The error variances of the observations need to be
   ox = ox.transpose();
   //octave_stdout << "shape(of) " << of.rows() << "x" << of.cols() << std::endl;
 
-  int n = gx.rows();
-  int nf = of.rows();
-  int gn = gx.cols();
-  int on = ox.cols();
-  int nparam = param.numel();
+  F77_INT n = TO_F77_INT (gx.rows());
+  F77_INT nf = TO_F77_INT (of.rows());
+  F77_INT gn = TO_F77_INT (gx.cols());
+  F77_INT on = TO_F77_INT (ox.cols());
+  F77_INT nparam = TO_F77_INT (param.numel());
   Matrix gf = Matrix(nf,gn);
   Matrix gvar = Matrix(gn,1);
 
