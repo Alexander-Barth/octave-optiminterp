@@ -35,6 +35,9 @@ optiminterp.oct: $(OBJECTS)
 	LFLAGS="$(LFLAGS)" \
                $(MKOCTFILE) -o $@ $(OBJECTS) $(LIBS) $(LAPACK_LIBS) $(FLIBS)
 
+# make sure to compile optimal_interpolation.o first
+optiminterp_wrapper.o: optiminterp_wrapper.F90 optimal_interpolation.o
+
 check:
 	octave --silent --norc --eval test_optiminterp
 
