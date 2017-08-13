@@ -1,0 +1,48 @@
+
+## Makeconf is automatically generated from Makeconf.base and Makeconf.add
+## in the various subdirectories.  To regenerate, use ./autogen.sh to
+## create a new ./Makeconf.in, then use ./configure to generate a new
+## Makeconf.
+
+OCTAVE_FORGE = 1
+
+SHELL = @SHELL@
+
+ver = @ver@
+
+DESTDIR =
+
+RANLIB = @RANLIB@
+STRIP = @STRIP@
+LN_S = @LN_S@
+
+# Most octave programs will be compiled with $(MKOCTFILE).  Those which
+# cannot use mkoctfile directly can request the flags that mkoctfile 
+# would use as follows:
+#    FLAG = $(shell $(MKOCTFILE) -p FLAG)
+# The following flags are for compiling programs that are independent
+# of Octave.  How confusing.
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPPFLAGS = @CPPFLAGS@
+CPICFLAG = @CPICFLAG@
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+CXXPICFLAG = @CXXPICFLAG@
+F77 = @F77@
+FFLAGS = @FFLAGS@
+FPICFLAG = @FPICFLAG@
+
+OCTAVE = @OCTAVE@
+OCTAVE_VERSION = @OCTAVE_VERSION@
+MKOCTFILE = @MKOCTFILE@ -DHAVE_OCTAVE_$(ver) -v
+SHLEXT = @SHLEXT@
+
+MKOCTFILE_FORTRAN_90=@MKOCTFILE_FORTRAN_90@
+OPTIMINTERP_LIBS=@OPTIMINTERP_LIBS@
+OPTIMINTERP_CFLAGS=@OPTIMINTERP_CFLAGS@
+
+%.o: %.c ; $(MKOCTFILE) -c $<
+%.o: %.f ; $(MKOCTFILE) -c $<
+%.o: %.cc ; $(MKOCTFILE) -c $<
+%.oct: %.cc ; $(MKOCTFILE) $<
