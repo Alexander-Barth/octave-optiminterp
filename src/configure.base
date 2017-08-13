@@ -50,105 +50,9 @@ dnl Check for mkoctfile
 AC_CHECK_PROG(MKOCTFILE,mkoctfile,mkoctfile)
 test -z "$MKOCTFILE" &&	AC_MSG_WARN([no mkoctfile found on path])
 
-AC_SUBST(ver)
-AC_SUBST(subver)
-AC_SUBST(mpath)
-AC_SUBST(opath)
-AC_SUBST(xpath)
-AC_SUBST(altpath)
-AC_SUBST(altmpath)
-AC_SUBST(altopath)
-
-AC_ARG_WITH(path, 
-	[  --with-path             install path prefix],
-	[ path=$withval ])
-AC_ARG_WITH(mpath,
-	[  --with-mpath            override path for m-files],
-	[mpath=$withval])
-AC_ARG_WITH(opath,
-	[  --with-opath            override path for oct-files],
-	[opath=$withval])
-AC_ARG_WITH(xpath,
-	[  --with-xpath            override path for executables],
-	[xpath=$withval])
-AC_ARG_WITH(altpath, 
-	[  --with-altpath          alternative functions install path prefix],
-	[ altpath=$withval ])
-AC_ARG_WITH(altmpath,
-	[  --with-altmpath         override path for alternative m-files],
-	[altmpath=$withval])
-AC_ARG_WITH(altopath,
-	[  --with-altopath         override path for alternative oct-files],
-	[altopath=$withval])	
-
-if test -n "$path" ; then
-   test -z "$mpath" && mpath=$path 
-   test -z "$opath" && opath=$path/oct 
-   test -z "$xpath" && xpath=$path/bin
-   test -z "$altpath" && altpath=$path-alternatives
-fi
-
-if test -n "$altpath" ; then
-   test -z "$altmpath" && altmpath=$altpath 
-   test -z "$altopath" && altopath=$altpath/oct 
-fi
-
-dnl Don't query if path/ver are given in the configure environment
-#if test -z "$mpath" || test -z "$opath" || test -z "$xpath" || test -z "$altmpath" || test -z "$altopath" || test -z "$ver" ; then
-if test -z "$mpath" || test -z "$opath" || test -z "$xpath" || test -z "$ver" ; then
-   dnl Construct program to get mkoctfile version and local install paths
-   cat > conftest.cc <<EOF
-#include <octave/config.h>
-#include <octave/version.h>
-#include <octave/defaults.h>
-
-#define INFOV "\nINFOV=" OCTAVE_VERSION "\n"
-
-#define INFOH "\nINFOH=" OCTAVE_CANONICAL_HOST_TYPE "\n"
-
-#ifdef OCTAVE_LOCALVERFCNFILEDIR
-# define INFOM "\nINFOM=" OCTAVE_LOCALVERFCNFILEDIR "\n"
-#else
-# define INFOM "\nINFOM=" OCTAVE_LOCALFCNFILEPATH "\n"
-#endif
-
-#ifdef OCTAVE_LOCALVEROCTFILEDIR
-# define INFOO "\nINFOO=" OCTAVE_LOCALVEROCTFILEDIR "\n"
-#else
-# define INFOO "\nINFOO=" OCTAVE_LOCALOCTFILEPATH  "\n"
-#endif
-
-#ifdef OCTAVE_LOCALVERARCHLIBDIR
-# define INFOX "\nINFOX=" OCTAVE_LOCALVERARCHLIBDIR  "\n"
-#else
-# define INFOX "\nINFOX=" OCTAVE_LOCALARCHLIBDIR  "\n"
-#endif
-
-const char *infom = INFOM;
-const char *infoo = INFOO;
-const char *infox = INFOX;
-const char *infoh = INFOH;
-const char *infov = INFOV;
-EOF
-
-   dnl Compile program perhaps with a special version of mkoctfile
-   $MKOCTFILE conftest.cc || AC_MSG_ERROR(Could not run $MKOCTFILE)
-
-   dnl Strip the config info from the compiled file
-   eval `strings conftest.o | grep "^INFO.=" | sed -e "s,//.*$,,"`
-   rm -rf conftest*
-
-   dnl set the appropriate variables if they are not already set
-   ver=`echo $INFOV | sed -e "s/\.//" -e "s/\..*$//"`
-   subver=`echo $INFOV | sed -e "[s/^[^.]*[.][^.]*[.]//]"`
-   alt_mbase=`echo $INFOM | sed -e "[s,\/[^\/]*$,,]"`
-   alt_obase=`echo $INFOO | sed -e "[s,/site.*$,/site,]"`
-   test -z "$mpath" && mpath=$INFOM/octave-forge
-   test -z "$opath" && opath=$INFOO/octave-forge
-   test -z "$xpath" && xpath=$INFOX
-   test -z "$altmpath" && altmpath=$alt_mbase/octave-forge-alternatives/m
-   test -z "$altopath" && altopath=$alt_obase/octave-forge-alternatives/oct/$INFOH
-fi
+dnl Check for octave-cofig
+AC_CHECK_PROG(OCTAVE_CONFIG,octave-config,octave-config)
+test -z "$OCTAVE_CONFIG" &&	AC_MSG_WARN([no octave-config found on path])
 
 dnl *******************************************************************
 
@@ -244,6 +148,17 @@ AC_MSG_RESULT($$2)
 AC_SUBST($2)
 ])
 
+dnl Evaluate an expression in octave-config
+dnl
+dnl OCTAVE_CONFIG_EVAL(expr,var) -> var=expr
+dnl
+AC_DEFUN(OCTAVE_CONFIG_EVAL,
+[AC_MSG_CHECKING([for $1 in octave-config])
+$2=`$OCTAVE_CONFIG -p $1`
+AC_MSG_RESULT($$2)
+AC_SUBST($2)
+])
+
 dnl Check status of an octave variable
 dnl
 dnl OCTAVE_CHECK_EXIST(variable,action_if_true,action_if_false)
@@ -261,13 +176,14 @@ fi
 
 dnl should check that $(OCTAVE) --version matches $(MKOCTFILE) --version
 AC_CHECK_PROG(OCTAVE,octave,octave)
-OCTAVE_EVAL(OCTAVE_VERSION,OCTAVE_VERSION)
+
+OCTAVE_CONFIG_EVAL(VERSION,OCTAVE_VERSION)
+dnl get major ver part as used for a HAVE_OCTAVE_XXX define
+ver=`echo $OCTAVE_VERSION | sed -e "s/\.//" -e "s/\..*$//"`
+AC_SUBST(ver)
 
 dnl grab canonical host type so we can write system specific install stuff
-OCTAVE_EVAL(octave_config_info('canonical_host_type'),canonical_host_type)
-
-dnl grab SHLEXT from octave config
-OCTAVE_EVAL(octave_config_info('SHLEXT'),SHLEXT)
+OCTAVE_CONFIG_EVAL(CANONICAL_HOST_TYPE,canonical_host_type)
 
 AC_PROG_LN_S
 
@@ -352,21 +268,8 @@ rm -f test_module.mod TEST_MODULE.mod test_module.MOD TEST_MODULE.MOD
 
 CONFIGURE_OUTPUTS="Makeconf"
 STATUS_MSG="
-octave commands will install into the following directories:
-   m-files:   $mpath
-   oct-files: $opath
-   binaries:  $xpath
-alternatives:
-   m-files:   $altmpath
-   oct-files: $altopath
-
-shell commands will install into the following directories:
-   binaries:  $bindir
-   man pages: $mandir
-   libraries: $libdir
-   headers:   $includedir
-
-octave-forge is configured with
+$PACKAGE is configured with
    octave:      $OCTAVE (version $OCTAVE_VERSION)
-   mkoctfile:	$MKOCTFILE for Octave $subver
+   mkoctfile:	$MKOCTFILE for Octave $OCTAVE_VERSION
+   octave-config: $OCTAVE_CONFIG for Octave $OCTAVE_VERSION
    optiminterp toolbox: $OPTIMINTERPSTATUS"
