@@ -44,3 +44,49 @@ function [fi,vari] = optiminterp3(x,y,z,f,var,lenx,leny,lenz,m,xi,yi,zi)
   [fi,vari] = optiminterpn(x,y,z,f,var,lenx,leny,lenz,m,xi,yi,zi);
 
 endfunction
+
+%!test
+%! # grid of background field
+%! [xi, yi, zi] = ndgrid (linspace (0, 1, 15));
+%!
+%! fi_ref(:,:,:,1) = sin (6 * xi) .* cos (6 * yi) .* sin (6 * zi);
+%! fi_ref(:,:,:,2) = cos (6 * xi) .* sin (6 * yi) .* cos (6 * zi);
+%!
+%! # grid of observations
+%! [x, y, z] = ndgrid (linspace (0, 1, 10));
+%!
+%! on = numel (x);
+%! var = 0.01 * ones (on, 1);
+%! f(:,:,:,1) = sin (6 * x) .* cos (6 * y) .* sin (6 * z);
+%! f(:,:,:,2) = cos (6 * x) .* sin (6 * y) .* cos (6 * z);
+%!
+%! m = 20;
+%!
+%! [fi, vari] = optiminterp3 (x, y, z, f, var, 0.1, 0.1, 0.1, m, xi, yi, zi);
+%!
+%! rms = sqrt (mean ((fi_ref(:) - fi(:)) .^ 2));
+%!
+%! assert (rms <= 0.04, "unexpected large difference with reference field");
+
+%!test
+%! # grid of background field
+%! [xi, yi, zi] = ndgrid (linspace (0, 1, 15));
+%! fi_ref = sin (6 * xi) .* cos (6 * yi) .* sin (6 * zi);
+%!
+%! # grid of observations
+%! [x, y, z] = ndgrid (linspace (0, 1, 10));
+%! x = x(:);
+%! y = y(:);
+%! z = z(:);
+%!
+%! on = numel (x);
+%! var = 0.01 * ones (on, 1);
+%! f = sin (6 * x) .* cos (6 * y) .* sin (6 * z);
+%!
+%! m = 20;
+%!
+%! [fi, vari] = optiminterp3 (x, y, z, f, var, 0.1, 0.1, 0.1, m, xi, yi, zi);
+%!
+%! rms = sqrt (mean ((fi_ref(:) - fi(:)) .^ 2));
+%!
+%! assert (rms <= 0.04, "'unexpected large difference with reference field");
