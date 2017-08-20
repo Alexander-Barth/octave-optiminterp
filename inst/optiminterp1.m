@@ -39,3 +39,25 @@ function [fi,vari] = optiminterp1(x,f,var,lenx,m,xi)
   [fi,vari] = optiminterpn(x,f,var,lenx,m,xi);
 
 endfunction
+
+%!test
+%! # grid of background field
+%! xi = linspace (0, 1, 50)';
+%! fi_ref(:,1) = sin (xi * 6);
+%! fi_ref(:,2) = cos (xi * 6);
+%!
+%! # grid of observations
+%! x = linspace (0, 1, 20)';
+%!
+%! on = numel (x);
+%! var = 0.01 * ones (on, 1);
+%! f(:,1) = sin (x * 6);
+%! f(:,2) = cos (x * 6);
+%!
+%! m = 15;
+%!
+%! [fi, vari] = optiminterp1 (x, f, var, 0.1, m, xi);
+%!
+%! rms = sqrt (mean ((fi_ref(:) - fi(:)) .^ 2));
+%!
+%! assert (rms <= 0.005, "unexpected large difference with reference field");

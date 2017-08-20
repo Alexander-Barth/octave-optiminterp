@@ -165,3 +165,26 @@ endfunction
 %! rms = sqrt (mean ((vari2(:) - vari(:)) .^ 2));
 %!
 %! assert (rms <= 1e-4, "unexpected large RMS difference (error field)");
+
+%!test
+%! # grid of background field
+%! [xi, yi] = ndgrid (linspace (0, 1, 30));
+%!
+%! fi_ref(:,:,1) = sin (xi * 6) .* cos (yi * 6);
+%! fi_ref(:,:,2) = cos (xi * 6) .* sin (yi * 6);
+%!
+%! # grid of observations
+%! [x, y] = ndgrid (linspace (0, 1, 20));
+%!
+%! on = numel (x);
+%! var = 0.01 * ones (on, 1);
+%! f(:,:,1) = sin (x * 6) .* cos (y * 6);
+%! f(:,:,2) = cos (x * 6) .* sin (y * 6);
+%!
+%! m = 30;
+%!
+%! [fi, vari] = optiminterp2 (x, y, f, var, 0.1, 0.1, m, xi, yi);
+%!
+%! rms = sqrt (mean ((fi_ref(:) - fi(:)) .^ 2));
+%!
+%! assert (rms <= 0.005, "unexpected large difference with reference field");
