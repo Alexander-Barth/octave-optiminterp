@@ -147,7 +147,7 @@
         ! a pure function cannot call stop therefore we return NaN
         ! stop 'error x <= 0' 
         y = 0
-        y = y/y
+        mod_bessel_K1 = y/y
         return
       end if
 
