@@ -38,9 +38,9 @@ m = min(30,on);
 
 % covariance function
 % gaussian
-%bcovar2 = @(d2) exp(-d2/len^2) ;
+bcovar2 = @(d2) exp(-d2/len^2) ;
 % diva
-bcovar2 = @(d2) max(sqrt(d2)/len,eps) .* besselk(1,max(sqrt(d2)/len,eps));
+%bcovar2 = @(d2) max(sqrt(d2)/len,eps) .* besselk(1,max(sqrt(d2)/len,eps));
 
 % P: covariance between grid points (xi,yi) and grid points (xi,yi)
 P = zeros(numel(xi),numel(xi));
