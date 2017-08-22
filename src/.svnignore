@@ -1,8 +1,0 @@
-configure
-autom4te.cache
-*~
-*.oct
-*.mod
-Makeconf
-config.log
-config.status
