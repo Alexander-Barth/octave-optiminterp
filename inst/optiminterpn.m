@@ -48,7 +48,10 @@ n = (nargin-3)/3;
 x =  varargin{1};
 xi = varargin{2*n+4};
 on = numel(varargin{1});
+gn = numel(varargin{2*n+4});
 gsz = size(varargin{2*n+4});
+ox = zeros(on,n);
+gx = zeros(gn,n);
 
 for i=1:n
   tmp = varargin{i};
