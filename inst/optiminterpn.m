@@ -52,6 +52,7 @@ gn = numel(varargin{2*n+4});
 gsz = size(varargin{2*n+4});
 ox = zeros(on,n);
 gx = zeros(gn,n);
+len = zeros(n);
 
 for i=1:n
   tmp = varargin{i};
