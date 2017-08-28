@@ -16,7 +16,7 @@ endif
 ifndef FLIBS
 FLIBS := $(shell $(MKOCTFILE) -p FLIBS)
 endif
-LFLAGS := $(shell $(MKOCTFILE) -p LFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+LFLAGS := $(shell $(MKOCTFILE) -p LFLAGS) $(LIBS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
 
 # Rule for compiling Fortran 90 programs
 
@@ -33,7 +33,7 @@ endif
 
 optiminterp.oct: $(OBJECTS)
 	LFLAGS="$(LFLAGS)" \
-               $(MKOCTFILE) -o $@ $(OBJECTS) $(LIBS) $(LAPACK_LIBS) $(FLIBS)
+               $(MKOCTFILE) -o $@ $(OBJECTS)
 
 # make sure to compile optimal_interpolation.o first
 optiminterp_wrapper.o: optiminterp_wrapper.F90 optimal_interpolation.o
