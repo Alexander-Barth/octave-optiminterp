@@ -8,4 +8,6 @@ OptimInterp
  optiminterp
 Examples
  example_optiminterp
-
+ test_optiminterp
+ test_optiminterp_err
+ test_optiminterp_mult
