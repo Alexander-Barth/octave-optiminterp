@@ -20,7 +20,7 @@
 
 #define DIAG_OBS_COVAR
       module optimal_interpolation
-!     working precision 
+!     working precision
 !     4 = simple precision, 8 is double precision
 
       integer, parameter :: wp = 8
@@ -121,13 +121,13 @@
 !     --------------------------------------------------------------------------
 !     Modified Bessel functions of 2nd kind (order 1)
 
-      pure function mod_bessel_K1(x)       
+      pure function mod_bessel_K1(x)
       implicit none
       real(wp), intent(in) :: x
       real(wp) :: mod_bessel_K1
 
       real(8) :: y
-      real(8), parameter :: & 
+      real(8), parameter :: &
            P1 = 1.0D0, &
            P2 = 0.15443144D0, &
            P3 = -0.67278579D0, &
@@ -145,7 +145,7 @@
 
       if (x <= 0.) then
         ! a pure function cannot call stop therefore we return NaN
-        ! stop 'error x <= 0' 
+        ! stop 'error x <= 0'
         y = 0
         mod_bessel_K1 = y/y
         return
@@ -172,10 +172,10 @@
       real(wp) :: mod_bessel_I1
 
       real(8) :: y, ax
-      real(8), parameter :: & 
+      real(8), parameter :: &
            P1 = 0.5D0, &
            P2 = 0.87890594D0, &
-           P3 = 0.51498869D0, & 
+           P3 = 0.51498869D0, &
            P4 = 0.15084934D0, &
            P5 = 0.2658733D-1, &
            P6 = 0.301532D-2, &
@@ -211,7 +211,7 @@
       real(wp) :: c
 
       real(wp) :: d(size(x1))
-      real(wp) :: rn 
+      real(wp) :: rn
 
       d = (x1 - x2)*param
       rn = sqrt(sum(d**2))
@@ -374,12 +374,12 @@
 #     ifndef STATIC_WORKSPACE
       allocate(work(lwork))
 #     endif
-      
+
 #     ifdef VERBOSE
       percentage_done = 0
 #     endif
 
-!$omp do 
+!$omp do
       do i=1,gn
 #       ifdef VERBOSE
         if (percentage_done .ne. int(100.*real(i)/real(gn))) then
@@ -391,8 +391,8 @@
 !       get the indexes of the nearest observations
 
         call select_nearest(gx(:,i),ox,param,m,index,distance)
-     
-!       form compute the error covariance matrix of the observation 
+
+!       form compute the error covariance matrix of the observation
 
         call observation_covariance(ovar,index,R)
 
@@ -401,7 +401,7 @@
         do j2 = 1, m
           ! Upper triangle only
 
-           do j1 = 1, j2  
+           do j1 = 1, j2
              A(j1,j2) = &
                  background_covariance(ox(:,index(j1)),ox(:,index(j2)),param)
            end do
@@ -439,8 +439,8 @@
 #     ifndef STATIC_WORKSPACE
       deallocate(work)
 #     endif
- 
-!$omp end parallel 
+
+!$omp end parallel
 
 
       end subroutine optiminterp
@@ -457,7 +457,7 @@
 
 
       call optiminterp(ox,of,ovar,param,m,gx,gf,gvar)
-      
+
       end subroutine optiminterp_gw
 
 
